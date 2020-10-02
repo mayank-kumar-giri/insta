@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/Navigation/index';
@@ -8,17 +13,35 @@ import Calendar from './components/Calendar/index';
 
 function App() {
   return (
-    <div>
-        <NavBar/>
-        <div>
-          <Post />
-          <Post />
-          {/* <Calendar/> */}
+    <Router>
+      <Switch>
+        <Route
+          path="/calendar"
+        >
+          <React.Fragment>
+            <NavBar/>
+            <div className="content-area">
+              <Calendar/>
+            </div>
+            <Footer/>
+          </React.Fragment>
+        </Route>
 
-        </div>
-        <Footer/>
+        <Route
+          path="/"
+        >
+          <React.Fragment>
+            <NavBar/>
+              <div className="content-area">
+                <Post />
+                <Post />
 
-    </div>
+              </div>
+            <Footer/>
+          </React.Fragment>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
