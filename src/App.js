@@ -9,13 +9,15 @@ import Calendar from './components/Calendar/index';
 function App() {
   return (
     <div>
-        {/* <NavBar/>
+        <NavBar/>
         <div>
           <Post />
           <Post />
+          {/* <Calendar/> */}
+
         </div>
-        <Footer/> */}
-        <Calendar/>
+        <Footer/>
+
     </div>
   );
 }
