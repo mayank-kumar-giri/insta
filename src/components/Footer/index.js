@@ -9,7 +9,7 @@ class Footer extends Component {
         return ( 
             <div className="footer navbar-fixed-bottom">
                 <div className="container">
-                    {/* <i class="fa fa-home" aria-hidden="true"></i> */}
+                    {/* <i className="fa fa-home" aria-hidden="true"></i> */}
                     <div className="row">
                         <div className="home col-6">
                             <Link to="/">
@@ -18,7 +18,7 @@ class Footer extends Component {
                         </div>
                         <div className="calendar col-6">
                             <Link to="/calendar">
-                                <i class="material-icons">date_range</i>         
+                                <i className="material-icons">date_range</i>         
                             </Link>                   
                         </div>
                     </div>
