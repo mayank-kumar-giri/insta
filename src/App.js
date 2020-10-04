@@ -9,7 +9,7 @@ import './App.css';
 import NavBar from './components/Navigation/index';
 import Post from './components/Post/index';
 import Footer from './components/Footer/index';
-import Calendar from './components/Calendar/index';
+import ImageCalendar from './components/ImageCalendar/index';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <React.Fragment>
             <NavBar/>
             <div className="content-area">
-              <Calendar/>
+              <ImageCalendar/>
             </div>
             <Footer/>
           </React.Fragment>
