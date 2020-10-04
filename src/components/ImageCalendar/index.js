@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import './calendar.css';
 import 'react-calendar/dist/Calendar.css';
 import request from '../../utils/request.js';
-import { isEmpty, isNil, formatDate, postSortCompare } from '../../utils/utils';
+import { isEmpty, isNil, formatDate, postSortCompare, beautifyDate } from '../../utils/utils';
 import moment from 'moment';
 import ModalView from '../ModalView';
 
@@ -143,11 +143,13 @@ class ImageCalendar extends PureComponent {
             <div className="Post-user-avatar">
               <img src={currentPost.profilePictureUrl} alt={currentPost.UserId} />
             </div>
-            <div className="Post-username">
-              <span>{currentPost.UserId}</span>
-            </div>
-            <div className="Post-date">
-              <span>{formatDate(currentPost.CreatedOnTimestamp)}</span>
+            <div className="header col-8">
+              <div className="Post-username">
+                <span>{currentPost.UserId}</span>
+              </div>
+              <div className="Post-date">
+                <span>{formatDate(currentPost.CreatedOnTimestamp, 10)}</span>
+              </div>
             </div>
           </div>
         }

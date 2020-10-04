@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./post.css";
+import {formatDate, beautifyDate} from '../../utils/utils';
 
 class Post extends Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class Post extends Component {
                 </div>
               </div>
               <div className="Post-date">
-                <span>{postDate}</span>
+                <span>{beautifyDate(formatDate(postDate,10))}</span>
               </div>
             </div>
           </header>
@@ -112,7 +113,7 @@ Post.defaultProps = {
     userImage: "",
     userName: "Username",
     postDate: "PostDate",
-    postImages: null,
+    postImages: [],
     caption: "Caption",
 }
 

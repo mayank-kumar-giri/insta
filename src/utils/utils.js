@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const isEmpty = object => {
   if(object===[] || object==={}) return true;
   else return false;
@@ -10,6 +12,13 @@ export const isNil = object => {
 
 export const formatDate = (dateStr, n) => {
   return dateStr.slice(0,n);
+}
+
+export const beautifyDate = (dateStr) => {
+
+  var date = moment(dateStr).utcOffset("+05:30").format("MMMM Do YYYY");
+  return date;
+
 }
 
 export const postSortCompare = (a,b) => {
