@@ -7,9 +7,9 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/Navigation/index';
-import Post from './components/Post/index';
 import Footer from './components/Footer/index';
 import ImageCalendar from './components/ImageCalendar/index';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -33,9 +33,7 @@ function App() {
           <React.Fragment>
             <NavBar/>
               <div className="content-area">
-                <Post />
-                <Post />
-
+                <Home />
               </div>
             <Footer/>
           </React.Fragment>

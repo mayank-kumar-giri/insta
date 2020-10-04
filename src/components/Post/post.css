@@ -33,6 +33,13 @@
     font-weight: bold;
     font-size: 15px;
   }
+
+  .Post-location {
+    margin-left: 8px;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+  }
   .Post-date {
     color: rgb(179, 176, 176);
     font-size: 15px;

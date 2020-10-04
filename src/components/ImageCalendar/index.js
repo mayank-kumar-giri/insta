@@ -3,16 +3,10 @@ import Calendar from 'react-calendar';
 import './calendar.css';
 import 'react-calendar/dist/Calendar.css';
 import request from '../../utils/request.js';
-import { isEmpty, isNil, formatDate } from '../../utils/utils';
+import { isEmpty, isNil, formatDate, postSortCompare } from '../../utils/utils';
 import moment from 'moment';
 
 const POSTS_API = 'https://quinncareapi.azurewebsites.net/api/assignment/posts';
-
-const postSortCompare = (a,b) => {
-  if (a.timeInSeconds < b.timeInSeconds) return -1;
-  else if (a.timeInSeconds > b.timeInSeconds) return 1;
-  else return 0;
-}
 
 const findFirstPost = (sortedPosts, timeInSeconds) => {
   if(isNil(sortedPosts) || isEmpty(sortedPosts) || timeInSeconds<0) return -1;
@@ -43,6 +37,10 @@ class ImageCalendar extends PureComponent {
   }
 
   componentDidMount() {
+    this.fetchPosts();
+  }
+
+  fetchPosts = () => {
     request.get(POSTS_API)
       .then(({data}) => {
         data.forEach((post, index) => {
@@ -57,7 +55,7 @@ class ImageCalendar extends PureComponent {
         console.log(error);
       });
   }
-
+ 
   renderExpandedImageModal = () => {
     return (
       <h1>The Expandables :p</h1>
@@ -111,7 +109,6 @@ class ImageCalendar extends PureComponent {
       isShowingImageModal,
     } = this.state;
 
-    debugger;
     return (
       <React.Fragment>
         {isShowingImageModal && this.renderExpandedImageModal()}
