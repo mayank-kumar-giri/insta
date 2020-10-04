@@ -138,13 +138,13 @@ class ImageCalendar extends PureComponent {
 
     return (
       <ModalView
-        title={
-          <div className="Post-user">
-            <div className="Post-user-avatar">
+        header={
+          <div className="header-user row">
+            <div className="Post-user-avatar pad-0">
               <img src={currentPost.profilePictureUrl} alt={currentPost.UserId} />
             </div>
             <div className="header col-8">
-              <div className="Post-username">
+              <div className="header-username">
                 <span>{currentPost.UserId}</span>
               </div>
               <div className="Post-date">

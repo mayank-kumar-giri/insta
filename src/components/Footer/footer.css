@@ -11,8 +11,11 @@
   }
 .material-icons{
   font-size:50px;
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
 }
 i{
   margin-right: 10px;

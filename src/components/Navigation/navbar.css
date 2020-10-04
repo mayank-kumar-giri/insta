@@ -19,7 +19,6 @@
   .Nav-menus {
     height: 77px;
     width: 70%;
-    /* margin: 0 auto; */
     padding-top: 26px;
     padding-bottom:  26px;
   }
@@ -32,11 +31,5 @@
     height: 40px;
     font-family: sofia;
     float: left;
-    margin-left: 40px;
+    margin-left: 22%;
   }
-
-  /* @media only screen and (min-width: 768){
-    .Nav-brand-logo{
-      padding-left: auto;
-    }
-  } */

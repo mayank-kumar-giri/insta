@@ -138,5 +138,18 @@
     position: relative;
   }
 
-  
+  .header-user {
+    width: 100%;
+    padding-left: 7px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    padding-right: 7px;
+    align-items: center;
+  }
+
+  .header-username {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+  }
   

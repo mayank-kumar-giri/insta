@@ -9,7 +9,6 @@ class Footer extends Component {
         return ( 
             <div className="footer navbar-fixed-bottom">
                 <div className="container">
-                    {/* <i className="fa fa-home" aria-hidden="true"></i> */}
                     <div className="row">
                         <div className="home col-6">
                             <Link to="/">

@@ -11,6 +11,7 @@ class ModalView extends Component {
     render() { 
       const {
         title,
+        header,
         footer,
         children,
         onClose,
@@ -24,11 +25,10 @@ class ModalView extends Component {
           {title && <Modal.Header closeButton>
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>}
-          {!title && 
-            <div className="row justify-content-end">
-              <i className="material-icons md-20">close</i>
-            </div>
-          }
+
+          {header && <Modal.Header closeButton>
+            {header}
+          </Modal.Header>}
 
           <Modal.Body className="pad-0">
             <div className="container-fluid pad-0">
