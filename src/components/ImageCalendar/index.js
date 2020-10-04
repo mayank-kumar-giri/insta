@@ -5,6 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import request from '../../utils/request.js';
 import { isEmpty, isNil, formatDate, postSortCompare } from '../../utils/utils';
 import moment from 'moment';
+import ModalView from '../ModalView';
 
 const POSTS_API = 'https://quinncareapi.azurewebsites.net/api/assignment/posts';
 
@@ -32,6 +33,8 @@ class ImageCalendar extends PureComponent {
     this.state = {
       calDate: new Date(),
       isShowingImageModal: false,
+      currentExpandedPostIndex: null,
+      currentExpandedImageIndex: null,
       posts: [],
     };
   }
@@ -45,9 +48,21 @@ class ImageCalendar extends PureComponent {
       .then(({data}) => {
         data.forEach((post, index) => {
           data[index]["timeInSeconds"] = moment(formatDate(post.CreatedOnTimestamp, 10), 'YYYY-MM-DD').unix();
+          data[index]["imageCount"] = post.Images.length;
+        });
+        const sortedPosts = data.sort(postSortCompare);
+        const sortedPostImages = [];
+        sortedPosts.forEach((post, index) => {
+          post.Images.forEach(image => {
+            sortedPostImages.push({
+              postIndex: index,
+              imageUrl: image["ImageUrl"]
+            });
+          });
         });
         this.setState({
-          posts: data.sort(postSortCompare),
+          posts: sortedPosts,
+          images: sortedPostImages,
         });
       })
       .catch(error => {
@@ -55,22 +70,116 @@ class ImageCalendar extends PureComponent {
         console.log(error);
       });
   }
+
+  nextExpandedImage = () => {
+    const { 
+      posts,
+      currentExpandedPostIndex,
+      currentExpandedImageIndex
+    } = this.state;
+
+    const totalPostCount = posts.length;
+    const currentPostImageCount = posts[currentExpandedPostIndex].imageCount;
+    const isCurrentPostOver = ((currentExpandedImageIndex+1)===currentPostImageCount);
+
+    if(isCurrentPostOver && (currentExpandedPostIndex===(totalPostCount-1))) {
+      alert("No more posts available!");
+      return;
+    }
+
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        currentExpandedPostIndex: isCurrentPostOver 
+                                    ? prevState.currentExpandedPostIndex + 1
+                                    : prevState.currentExpandedPostIndex,
+        currentExpandedImageIndex: isCurrentPostOver
+                                    ? 0
+                                    : prevState.currentExpandedImageIndex + 1,
+      };
+    });
+  }
+
+  previousExpandedImage = () => {
+    const { 
+      currentExpandedPostIndex,
+      currentExpandedImageIndex
+    } = this.state;
+
+    const isCurrentPostOver = (currentExpandedImageIndex===0);
+
+    if(isCurrentPostOver && (currentExpandedPostIndex===0)) {
+      alert("No more posts available!");
+      return;
+    }
+
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        currentExpandedPostIndex: isCurrentPostOver 
+                                    ? prevState.currentExpandedPostIndex - 1
+                                    : prevState.currentExpandedPostIndex,
+        currentExpandedImageIndex: isCurrentPostOver
+                                    ? 0
+                                    : prevState.currentExpandedImageIndex - 1,
+      };
+    });
+  }
  
   renderExpandedImageModal = () => {
+    const { 
+      posts,
+      currentExpandedPostIndex,
+      currentExpandedImageIndex
+    } = this.state;
+
+    const currentPost = posts[currentExpandedPostIndex];
+    const currentImageUrl = posts[currentExpandedPostIndex].Images[currentExpandedImageIndex]["ImageUrl"];
+
     return (
-      <h1>The Expandables :p</h1>
+      <ModalView
+        title={
+          <div className="Post-user">
+            <div className="Post-user-avatar">
+              <img src={currentPost.profilePictureUrl} alt={currentPost.UserId} />
+            </div>
+            <div className="Post-username">
+              <span>{currentPost.UserId}</span>
+            </div>
+            <div className="Post-date">
+              <span>{formatDate(currentPost.CreatedOnTimestamp)}</span>
+            </div>
+          </div>
+        }
+        size={"lg"}
+        footer={
+          <div className="Post-caption">
+            <strong> {currentPost.UserId} </strong> 
+            <span> {currentPost.description} </span>
+          </div>
+        }
+        onClose={this.resetAction}
+        onNext={this.nextExpandedImage}
+        onPrevious={this.previousExpandedImage}
+      >
+        <img className="modal-img" src={currentImageUrl}/>
+      </ModalView>
     );
   }
 
-  showExpandedImageModal = () => {
+  showExpandedImageModal = (currentExpandedPostIndex) => {
     this.setState({
       isShowingImageModal: true,
+      currentExpandedPostIndex,
+      currentExpandedImageIndex: 0
     });
   }
 
   resetAction = () => {
     this.setState({
       isShowingImageModal: false,
+      currentExpandedPostIndex: null,
+      currentExpandedImageIndex: null
     });
   }
 
@@ -97,7 +206,14 @@ class ImageCalendar extends PureComponent {
     return (view === 'month')
               ? (
                   <div className="date-image">
-                    <img src={firstPost.Images[0]["ImageUrl"]} alt={firstPost.UserId} key={tileDate}/>
+                    <img 
+                      src={firstPost.Images[0]["ImageUrl"]} 
+                      alt={firstPost.UserId} 
+                      key={tileDate}
+                      onClick={() => {
+                        this.showExpandedImageModal(firstPostIndex);
+                      }}
+                    />
                   </div>
                 )
               : null;

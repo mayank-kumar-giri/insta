@@ -30,9 +30,9 @@ class Post extends Component {
                 <div className="Post-username">
                   <span>{userName}</span>
                 </div>
-                <div className="Post-location">
+                {/* <div className="Post-location">
                   <span>{location}</span>
-                </div>
+                </div> */}
                 <div className="Post-date">
                   <span>{postDate}</span>
                 </div>
