@@ -7,9 +7,10 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/Navigation/index';
-import Post from './components/Post/index';
 import Footer from './components/Footer/index';
-import Calendar from './components/Calendar/index';
+import ImageCalendar from './components/ImageCalendar/index';
+import Home from './components/Home';
+import { motion } from 'framer-motion';
 
 function App() {
   return (
@@ -18,27 +19,45 @@ function App() {
         <Route
           path="/calendar"
         >
-          <React.Fragment>
+          <motion.div className="calendar"
+            initial={{
+                opacity: 0
+            }}
+            animate={{
+                opacity: 1
+            }}
+            transition={{
+                duration: 1.5 //in secs
+            }}
+          >
             <NavBar/>
             <div className="content-area">
-              <Calendar/>
+              <ImageCalendar/>
             </div>
             <Footer/>
-          </React.Fragment>
+          </motion.div>
         </Route>
 
         <Route
           path="/"
         >
-          <React.Fragment>
+          <motion.div className="home"
+            initial={{
+                opacity: 0
+            }}
+            animate={{
+                opacity: 1
+            }}
+            transition={{
+                duration: 1.5 //in secs
+            }}
+          >
             <NavBar/>
               <div className="content-area">
-                <Post />
-                <Post />
-
+                <Home />
               </div>
             <Footer/>
-          </React.Fragment>
+          </motion.div>
         </Route>
       </Switch>
     </Router>

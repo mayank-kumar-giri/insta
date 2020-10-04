@@ -29,7 +29,7 @@
 }
 
 .content-area {
-  overflow: auto;
+  overflow: scroll;
   height: calc(100vh - 154px);
 }
 
