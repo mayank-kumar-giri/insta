@@ -1,52 +1,107 @@
 import React, { Component } from 'react';
 import "./post.css";
-import profile from '../../assets/imgs/profile.jpg';
-import { Row } from 'react-bootstrap';
 
 class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      currentImageIndex: 0,
+    };
   }
 
-    render() { 
-      const {
-        userImage,
-        userName,
-        postDate,
-        postImages,
-        caption,
-        location
-      } = this.props;
-      
-      return (
-        <div className="container fluid">
-          <article className="Post" ref="Post">
-            <header>
-              <div className="Post-user">
-                <div className="Post-user-avatar">
-                  <img src={userImage} alt={userName} />
-                </div>
+  nextImage = () => {
+    const { 
+      currentImageIndex,
+    } = this.state;
+
+    const {
+      postImages
+    } = this.props;
+
+    const imageCount = postImages.length;
+    const isLastImage = ((currentImageIndex+1)===imageCount);
+
+    if(isLastImage) {
+      return;
+    }
+
+    this.setState(prevState => {
+      return {
+        currentImageIndex: prevState.currentImageIndex + 1,
+      };
+    });
+  }
+
+  previousImage = () => {
+    const { 
+      currentImageIndex,
+    } = this.state;
+
+    const isFirstImage = (currentImageIndex===0);
+
+    if(isFirstImage) {
+      return;
+    }
+
+    this.setState(prevState => {
+      return {
+        currentImageIndex: prevState.currentImageIndex - 1,
+      };
+    });
+  }
+
+  render() { 
+    const {
+      userImage,
+      userName,
+      postDate,
+      postImages,
+      caption,
+      location,
+    } = this.props;
+
+    const {
+      currentImageIndex,
+    } = this.state;
+    
+    return (
+      <div className="container fluid">
+        <article className="Post" ref="Post">
+          <header>
+            <div className="Post-user row">
+              <div className="Post-user-avatar pad-0">
+                <img src={userImage} alt={userName} />
+              </div>
+              <div className="header col-3 pad-0">
                 <div className="Post-username">
                   <span>{userName}</span>
                 </div>
-                {/* <div className="Post-location">
+                <div className="Post-location">
                   <span>{location}</span>
-                </div> */}
-                <div className="Post-date">
-                  <span>{postDate}</span>
                 </div>
               </div>
-            </header>
-            <div className="Post-image">
-              <div className="Post-image-bg">
-                <img alt={userName+"'s Post"} src={postImages && postImages[0]["ImageUrl"]} />
+              <div className="Post-date">
+                <span>{postDate}</span>
               </div>
             </div>
-            <div className="Post-caption">
-              <strong> {userName} </strong> 
-              <span> {caption} </span>
+          </header>
+          <div className="Post-image container-fluid pad-0">
+            <div className="row pad-0 modal-row">
+              <div className="pad-0 col-1">
+                <i className="material-icons arrow" onClick={this.previousImage}> navigate_before </i>
+              </div>
+              <div className="Post-image-bg pad-4 col-10">
+                <img alt={userName+"'s Post"} src={postImages && postImages[currentImageIndex]["ImageUrl"]} />
+              </div>
+              <div className="pad-0 col-1">
+                <i className="material-icons arrow" onClick={this.nextImage}> navigate_next </i>
+              </div>
             </div>
+          </div>
+          <div className="Post-caption">
+            <strong> {userName} </strong> 
+            <span> {caption} </span>
+          </div>
         </article>
       </div> 
     );
