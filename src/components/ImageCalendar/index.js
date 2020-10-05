@@ -133,8 +133,17 @@ class ImageCalendar extends PureComponent {
       currentExpandedImageIndex
     } = this.state;
 
+    const totalPostCount = posts.length;
     const currentPost = posts[currentExpandedPostIndex];
-    const currentImageUrl = posts[currentExpandedPostIndex].Images[currentExpandedImageIndex]["ImageUrl"];
+    const currentPostImageCount = currentPost.Images.length;
+
+    const isFirstPost = (currentExpandedPostIndex===0);
+    const isFirstImage = (isFirstPost && (currentExpandedImageIndex===0));
+
+    const isLastPost = (currentExpandedPostIndex===(totalPostCount-1));
+    const isLastImage = (isLastPost && (currentExpandedImageIndex===(currentPostImageCount-1)));
+
+    const currentImageUrl = currentPost.Images[currentExpandedImageIndex]["ImageUrl"];
 
     return (
       <ModalView
@@ -163,6 +172,8 @@ class ImageCalendar extends PureComponent {
         onClose={this.resetAction}
         onNext={this.nextExpandedImage}
         onPrevious={this.previousExpandedImage}
+        showNextArrow={!isLastImage}
+        showPreviousArrow={!isFirstImage}
       >
         <img className="modal-img" src={currentImageUrl}/>
       </ModalView>
