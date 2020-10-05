@@ -27,7 +27,7 @@ function App() {
                 opacity: 1
             }}
             transition={{
-                duration: 1.5 //in secs
+                duration: 1 //in secs
             }}
           >
             <NavBar/>
@@ -49,7 +49,7 @@ function App() {
                 opacity: 1
             }}
             transition={{
-                duration: 1.5 //in secs
+                duration: 1 //in secs
             }}
           >
             <NavBar/>
