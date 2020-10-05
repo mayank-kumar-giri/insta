@@ -17,7 +17,7 @@ function App() {
     <Router>
       <Switch>
         <Route
-          path="/calendar"
+          path= {process.env.PUBLIC_URL + "/calendar"}
         >
           <motion.div className="calendar"
             initial={{
@@ -27,7 +27,7 @@ function App() {
                 opacity: 1
             }}
             transition={{
-                duration: 1.5 //in secs
+                duration: 1 //in secs
             }}
           >
             <NavBar/>
@@ -39,7 +39,7 @@ function App() {
         </Route>
 
         <Route
-          path="/"
+          path={process.env.PUBLIC_URL + "/"}
         >
           <motion.div className="home"
             initial={{
@@ -49,7 +49,7 @@ function App() {
                 opacity: 1
             }}
             transition={{
-                duration: 1.5 //in secs
+                duration: 1 //in secs
             }}
           >
             <NavBar/>

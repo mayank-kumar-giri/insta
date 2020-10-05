@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./post.css";
 import {formatDate, beautifyDate} from '../../utils/utils';
+import { Link } from 'react-router-dom';
 
 class Post extends Component {
   constructor(props) {
@@ -64,6 +65,10 @@ class Post extends Component {
     const {
       currentImageIndex,
     } = this.state;
+
+    const imageCount = postImages.length;
+    const showPreviousArrow = (currentImageIndex != 0);
+    const showNextArrow = (currentImageIndex != (imageCount - 1));
     
     return (
       <div className="container fluid">
@@ -89,13 +94,13 @@ class Post extends Component {
           <div className="Post-image container-fluid pad-0">
             <div className="row pad-0 modal-row">
               <div className="pad-0 col-1">
-                <i className="material-icons arrow" onClick={this.previousImage}> navigate_before </i>
+                <Link> <i className={"material-icons arrow" + (showPreviousArrow ? "" : " hidden")} onClick={this.previousImage}> navigate_before </i> </Link>
               </div>
               <div className="Post-image-bg pad-4 col-10">
                 <img alt={userName+"'s Post"} src={postImages && postImages[currentImageIndex]["ImageUrl"]} />
               </div>
               <div className="pad-0 col-1">
-                <i className="material-icons arrow" onClick={this.nextImage}> navigate_next </i>
+                <Link> <i className={"material-icons arrow" + (showNextArrow ? "" : " hidden")} onClick={this.nextImage}> navigate_next </i> </Link>
               </div>
             </div>
           </div>
