@@ -17,7 +17,7 @@ function App() {
     <Router>
       <Switch>
         <Route
-          path="/calendar"
+          path= {process.env.PUBLIC_URL + "/calendar"}
         >
           <motion.div className="calendar"
             initial={{
@@ -39,7 +39,7 @@ function App() {
         </Route>
 
         <Route
-          path="/"
+          path={process.env.PUBLIC_URL + "/"}
         >
           <motion.div className="home"
             initial={{
