@@ -35,6 +35,7 @@ class ImageCalendar extends PureComponent {
       isShowingImageModal: false,
       currentExpandedPostIndex: null,
       currentExpandedImageIndex: null,
+      apiError: false,
       posts: [],
     };
   }
@@ -66,8 +67,9 @@ class ImageCalendar extends PureComponent {
         });
       })
       .catch(error => {
-        alert("API call failed!");
-        console.log(error);
+        this.setState({
+          apiError: true,
+        });
       });
   }
 
@@ -236,10 +238,16 @@ class ImageCalendar extends PureComponent {
     const {
       calDate,
       isShowingImageModal,
+      apiError
     } = this.state;
 
     return (
       <React.Fragment>
+        {apiError && 
+          <div className="box container">
+            <span className="message">Couldn't reach the servers!</span>
+          </div>
+        }
         {isShowingImageModal && this.renderExpandedImageModal()}
         <div className="result-calendar">
           <Calendar
